@@ -19,5 +19,6 @@ public class AppConst {
 
     //perPage items for pagination
     public static final String PERPAGE_NUMBER = "10";
+    public static final String PARAM_BUNDLE = "bundle";
 
 }

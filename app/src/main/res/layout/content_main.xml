@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    tools:ignore="MissingPrefix"
-    tools:context=".MainActivity"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity"
+    tools:ignore="MissingPrefix">
 
     <include
         android:id="@+id/toolbar"
@@ -28,10 +28,11 @@
             android:layout_height="fill_parent"
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="5dp"
-            app:ci_orientation="vertical"
             app:ci_gravity="center"
-            app:ci_width="10dp"
-            app:ci_height="10dp"/>
+            app:ci_height="10dp"
+            app:ci_margin="5dp"
+            app:ci_orientation="vertical"
+            app:ci_width="10dp" />
 
     </FrameLayout>
 

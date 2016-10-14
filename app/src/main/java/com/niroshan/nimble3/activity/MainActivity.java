@@ -1,4 +1,4 @@
-package com.niroshan.nimble3;
+package com.niroshan.nimble3.activity;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.niroshan.nimble3.R;
 import com.niroshan.nimble3.adapter.PageAdapter;
 import com.niroshan.nimble3.dto.BeanDataList;
 import com.niroshan.nimble3.fragment.CardPagerFragment;
@@ -25,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ViewPager viewPager;
     private CircleIndicator indicator;
     private PageAdapter dataPagerAdapter;
-    private ArrayList<BeanDataList> list;
     private int pageNumber = 1;
     private Boolean isLoading = false;
     private Toolbar mToolbar;
@@ -47,26 +47,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void callDataListApi() {
-        final Dialog dialog = AppUtils.showProgress(this);
-        new GetDataList(this, new RxResponseListener<BeanDataList>() {
 
-            @Override
-            public void serviceResponse(ArrayList<BeanDataList> serviceResponseResponse) {
+        if (AppUtils.checkNetworkConnection(getApplicationContext())) {
 
-                setListDataRX(serviceResponseResponse);
+            final Dialog dialog = AppUtils.showProgress(this);
+            new GetDataList(this, new RxResponseListener<BeanDataList>() {
 
-            }
+                @Override
+                public void serviceResponse(ArrayList<BeanDataList> serviceResponseResponse) {
+                    setListDataRX(serviceResponseResponse);
+                }
 
-            @Override
-            public void serviceThrowable(Throwable throwable) {
-                dialog.dismiss();
-            }
+                @Override
+                public void serviceThrowable(Throwable throwable) {
+                    dialog.dismiss();
+                }
 
-            @Override
-            public void serviceComplete() {
-                dialog.dismiss();
-            }
-        }, String.valueOf(pageNumber)).callDataListServiceRXWay();
+                @Override
+                public void serviceComplete() {
+                    dialog.dismiss();
+                }
+            }, String.valueOf(pageNumber)).callDataListServiceRXWay();
+
+        } else{
+            AppUtils.showAlert(this, getString(R.string.app_name), this.getString(R.string.msg_turn_on_network), null);
+        }
 
     }
 
@@ -74,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle("");
         TextView title = (TextView) mToolbar.findViewById(R.id.tv_toolbar_title);
+        AppUtils.setTextViewFontSizeBasedOnScreenDensity(this, title, 18.0f);
         title.setText("SURVEYS");
         ImageView refreshIcon = (ImageView) findViewById(R.id.refresh);
         refreshIcon.setOnClickListener(this);
@@ -83,11 +89,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setListDataRX(ArrayList<BeanDataList> serviceResponseResponse) {
 
-        list = serviceResponseResponse;
+        if (serviceResponseResponse != null && !serviceResponseResponse.isEmpty()) {
 
-        if (list != null && !list.isEmpty()) {
-
-            for (BeanDataList data : list) {
+            for (BeanDataList data : serviceResponseResponse) {
                 dataPagerAdapter.addFragment(CardPagerFragment.newInstance(data), data.getTitle());
             }
 
@@ -114,6 +118,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (view.getId()) {
             case R.id.refresh:
+                pageNumber = 1;
+                dataPagerAdapter = new PageAdapter(getSupportFragmentManager());
                 callDataListApi();
                 break;
 

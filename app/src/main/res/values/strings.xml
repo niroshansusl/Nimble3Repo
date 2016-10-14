@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Nimbl3</string>
     <string name="msg_operation_fail">Operation Fail. Try again.</string>
+    <string name="msg_turn_on_network">Please turn on network connection to continue</string>
 </resources>

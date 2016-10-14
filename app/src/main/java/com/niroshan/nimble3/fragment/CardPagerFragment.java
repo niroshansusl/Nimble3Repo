@@ -1,8 +1,8 @@
 package com.niroshan.nimble3.fragment;
 
 import android.graphics.Typeface;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.niroshan.nimble3.R;
+import com.niroshan.nimble3.activity.SurveyActivity;
 import com.niroshan.nimble3.config.AppConst;
 import com.niroshan.nimble3.dto.BeanDataList;
 import com.niroshan.nimble3.utils.AppUtils;
@@ -22,10 +24,10 @@ import com.niroshan.nimble3.utils.AppUtils;
 public class CardPagerFragment extends Fragment implements View.OnClickListener {
 
     private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM = "param";
     private String TAG = CardPagerFragment.class.getSimpleName();
     private Button ButtonSurvey;
     private BeanDataList data;
-
     private ImageView cardImage;
     private TextView title, description;
 
@@ -61,6 +63,7 @@ public class CardPagerFragment extends Fragment implements View.OnClickListener 
     private void init(View view) {
 
         ButtonSurvey = (Button) view.findViewById(R.id.button);
+        ButtonSurvey.setOnClickListener(this);
 
         cardImage = (ImageView) view.findViewById(R.id.image_background);
         title = (TextView) view.findViewById(R.id.textView);
@@ -74,6 +77,17 @@ public class CardPagerFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.button:
+                Bundle args = new Bundle();
+                args.putSerializable(ARG_PARAM, data);
+                AppUtils.startActivity(getActivity(), SurveyActivity.class, args);
+                break;
+
+            default:
+                break;
+        }
 
     }
 

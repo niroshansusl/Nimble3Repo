@@ -1,12 +1,13 @@
 package com.niroshan.nimble3.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Niroshan on 10/13/2016.
  */
 
-public class BeanQuestions {
+public class BeanQuestions implements Serializable {
 
     private int display_order;
     private String id, text, help_text, short_text, pick, display_type, correct_answer_id, facebook_profile, twitter_profile, image_url, cover_image_url,

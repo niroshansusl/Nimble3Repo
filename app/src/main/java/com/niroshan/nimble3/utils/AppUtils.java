@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.Window;
@@ -12,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.niroshan.nimble3.R;
+import com.niroshan.nimble3.config.AppConst;
 
 /**
  * Created by Niroshan on 10/13/2016.
@@ -78,5 +83,30 @@ public class AppUtils {
         dialog.setCancelable(false);
         dialog.show();
         return dialog;
+    }
+
+    //start an activity
+    public static void startActivity(Activity activity, Class<?> aClass, Bundle bundle) {
+
+        Intent intent = new Intent(activity, aClass);
+        intent.putExtra(AppConst.PARAM_BUNDLE, bundle);
+        activity.startActivity(intent);
+        activity.overridePendingTransition(R.anim.pull_in_left, R.anim.push_out_right);
+    }
+
+    // check network connection availability
+    public static boolean checkNetworkConnection(Context context) {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager == null) {
+            return false;
+        }
+
+        NetworkInfo activeNetworks = connectivityManager.getActiveNetworkInfo();
+        if (activeNetworks != null && activeNetworks.isConnected()) {
+            return activeNetworks.isConnectedOrConnecting();
+        }
+        return false;
     }
 }

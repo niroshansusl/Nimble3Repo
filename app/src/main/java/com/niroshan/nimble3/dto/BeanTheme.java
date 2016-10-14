@@ -1,10 +1,12 @@
 package com.niroshan.nimble3.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by Niroshan on 10/13/2016.
  */
 
-public class BeanTheme {
+public class BeanTheme implements Serializable {
 
     private String color_active, color_answer_inactive, color_answer_normal, color_inactive, color_question;
 

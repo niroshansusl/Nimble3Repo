@@ -1,10 +1,12 @@
 package com.niroshan.nimble3.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by Niroshan on 10/13/2016.
  */
 
-public class BeanAlerts {
+public class BeanAlerts implements Serializable {
 
     private String id, alert_type, recipient, answer_id;
     private Boolean is_only_business_hours;
