@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Nimbl3</string>
+    <string name="msg_operation_fail">Operation Fail. Try again.</string>
+</resources>
