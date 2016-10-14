@@ -15,5 +15,5 @@ public interface ApiConstant {
     public static final String ATTR_TAG_AUTH_KEY = "access_token";
 
     public static final String ATTR_TAG_PAGE = "page";
-    public static final String ATTR_TAG_PER_PAGE = "per_page";
+    public static final String ATTR_TAG_PER_PAGE = "per_page";;
 }

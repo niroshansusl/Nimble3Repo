@@ -3,6 +3,7 @@ package com.niroshan.nimble3.retrofit;
 import android.app.Activity;
 import android.support.v4.util.ArrayMap;
 import android.util.Log;
+
 import com.niroshan.nimble3.config.AppConst;
 import com.niroshan.nimble3.dto.BaseRequestData;
 import com.niroshan.nimble3.dto.BeanDataList;
@@ -13,8 +14,10 @@ import com.niroshan.nimble3.utils.DataApiList;
 import com.niroshan.nimble3.utils.RestTemplateGenerator;
 import com.niroshan.nimble3.utils.WebApi;
 import com.niroshan.nimble3.utils.WebUtils;
+
 import java.util.ArrayList;
 import java.util.Map;
+
 import retrofit2.Retrofit;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -31,10 +34,12 @@ public class GetDataList {
     public static final String TAG = GetDataList.class.getSimpleName();
     private Activity activity;
     private RxResponseListener rxResponseListener;
+    private String pageNumber;
 
-    public GetDataList(Activity activity, RxResponseListener rxResponseListener) {
+    public GetDataList(Activity activity, RxResponseListener rxResponseListener, String pageNumber) {
         this.activity = activity;
         this.rxResponseListener = rxResponseListener;
+        this.pageNumber = pageNumber;
     }
 
     public void callDataListServiceRXWay() {
@@ -46,8 +51,8 @@ public class GetDataList {
 
         Map<String, String> queryMap = new ArrayMap<>(1);
         queryMap.put(ApiConstant.ATTR_TAG_AUTH_KEY, data.getAuth_key());
-        /*queryMap.put(ApiConstant.ATTR_TAG_PAGE, "1");
-        queryMap.put(ApiConstant.ATTR_TAG_PER_PAGE, "10");*/
+        queryMap.put(ApiConstant.ATTR_TAG_PAGE, pageNumber);
+        queryMap.put(ApiConstant.ATTR_TAG_PER_PAGE, AppConst.PERPAGE_NUMBER);
 
         RetrofitWebService dataListService = RETROFIT.create(RetrofitWebService.class);
 

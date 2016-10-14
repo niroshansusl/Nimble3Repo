@@ -1,16 +1,17 @@
 package com.niroshan.nimble3.utils;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-import com.niroshan.nimble3.MainActivity;
-import com.niroshan.nimble3.fragment.dialog.ProgressDialogFragment;
+import com.niroshan.nimble3.R;
 
 /**
  * Created by Niroshan on 10/13/2016.
@@ -46,13 +47,6 @@ public class AppUtils {
         Glide.with(context).load(url).placeholder(placeholder).into(img);
     }
 
-    public static boolean isEmpty(String string) {
-        if (string == null || string.trim().length() == 0) {
-            return true;
-        }
-        return false;
-    }
-
     public static void setTextViewFontSizeBasedOnScreenDensity(
             Activity activity, TextView tv, double size) {
 
@@ -74,24 +68,15 @@ public class AppUtils {
         tv.setTypeface(tv.getTypeface(), style);
     }
 
-    //close ProgressDialogFragment
-    public static void closeProgressDialog(ProgressDialogFragment dialogFragment) {
-        try {
-            dialogFragment.dismiss();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    //show ProgressDialogFragmenta
-    public static ProgressDialogFragment showProgressDialog(Activity activity) {
-        ProgressDialogFragment dialogFragment = new ProgressDialogFragment();
-        try {
-            dialogFragment.setCancelable(true);
-            dialogFragment.show(((MainActivity) activity).getSupportFragmentManager(), "tag");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return dialogFragment;
+    //show ProgressDialog
+    public static Dialog showProgress(Activity activity) {
+        Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(
+                new ColorDrawable(0));
+        dialog.setContentView(R.layout.fragment_dialog_progress);
+        dialog.setCancelable(false);
+        dialog.show();
+        return dialog;
     }
 }

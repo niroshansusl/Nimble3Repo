@@ -11,7 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.niroshan.nimble3.R;
-import com.niroshan.nimble3.dto.BeanDataListItem;
+import com.niroshan.nimble3.config.AppConst;
+import com.niroshan.nimble3.dto.BeanDataList;
 import com.niroshan.nimble3.utils.AppUtils;
 
 /**
@@ -23,15 +24,15 @@ public class CardPagerFragment extends Fragment implements View.OnClickListener 
     private static final String ARG_PARAM1 = "param1";
     private String TAG = CardPagerFragment.class.getSimpleName();
     private Button ButtonSurvey;
-    private BeanDataListItem mBeanDataListItem;
+    private BeanDataList data;
 
     private ImageView cardImage;
     private TextView title, description;
 
-    public static CardPagerFragment newInstance(BeanDataListItem item) {
+    public static CardPagerFragment newInstance(BeanDataList data) {
         CardPagerFragment fragment = new CardPagerFragment();
         Bundle args = new Bundle();
-        args.putParcelable(ARG_PARAM1, item);
+        args.putSerializable(ARG_PARAM1, data);
         fragment.setArguments(args);
 
         return fragment;
@@ -41,7 +42,7 @@ public class CardPagerFragment extends Fragment implements View.OnClickListener 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mBeanDataListItem = getArguments().getParcelable(ARG_PARAM1);
+            data = (BeanDataList) getArguments().getSerializable(ARG_PARAM1);
         }
     }
 
@@ -79,9 +80,9 @@ public class CardPagerFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onResume() {
         super.onResume();
-        AppUtils.loadImageWithPlaceholder(getActivity(), mBeanDataListItem.getCover_image_url(), cardImage, R.drawable.placeholder);
-        title.setText(mBeanDataListItem.getTitle());
-        description.setText(mBeanDataListItem.getDescription());
+        AppUtils.loadImageWithPlaceholder(getActivity(), data.getCover_image_url().concat(AppConst.APPEND_HD_IMAGE), cardImage, R.drawable.placeholder);
+        title.setText(data.getTitle());
+        description.setText(data.getDescription());
     }
 
 }

@@ -14,11 +14,10 @@ public class AppConst {
     //calling to the relevant server
     public static ServerConfig CURRENT_SERVER = ServerConfig.STAGING_USAY.val();
 
-    public static final int CONNECTION_TIMEOUT = 30000; // 30 seconds
-    public static final int DATA_TIMEOUT = 60000;
-    public static final String PACKAGE_NAME = "com.niroshan.nimble3";
+    //to append high resolution image
+    public static final String APPEND_HD_IMAGE = "l";
 
-    //content types
-    public static final String CONTENT_TYPE_TEXT_HTML = "text/html";
+    //perPage items for pagination
+    public static final String PERPAGE_NUMBER = "10";
 
 }

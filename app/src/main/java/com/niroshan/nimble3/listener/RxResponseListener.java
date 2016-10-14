@@ -8,10 +8,10 @@ import java.util.ArrayList;
 
 public interface RxResponseListener<T> {
 
-    public void serviceResponse(ArrayList<T> responce);
+    void serviceResponse(ArrayList<T> responce);
 
-    public void serviceThrowable(Throwable throwable);
+    void serviceThrowable(Throwable throwable);
 
-    public void serviceComplete();
+    void serviceComplete();
 
 }
